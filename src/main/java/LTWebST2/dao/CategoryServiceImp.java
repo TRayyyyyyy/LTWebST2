@@ -7,7 +7,7 @@ import LTWebST2.Models.CategoryModel;
 
 public class CategoryServiceImp implements ICategoryService {
 
-	public ICategoryDao cateDao = new CategoryDAOImp();
+	public ICategoryDao cateDao = new CategoryDaoImp();
 	@Override
 	public void insert(CategoryModel category) {
 		cateDao.insert(category);

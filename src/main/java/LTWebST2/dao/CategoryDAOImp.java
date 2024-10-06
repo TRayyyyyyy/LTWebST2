@@ -9,7 +9,7 @@ import java.util.List;
 import LTWebST2.Models.CategoryModel;
 import LTWebST2.Models.DBConnection;
 
-public class CategoryDAOImp implements ICategoryDao {
+public class CategoryDaoImp implements ICategoryDao {
 
 	public Connection conn = null;
 	public PreparedStatement ps = null;
@@ -30,21 +30,19 @@ public class CategoryDAOImp implements ICategoryDao {
 				category.setStatus(rs.getInt("status"));
 				list.add(category);
 			}
-			conn.close();
-			ps.close();
-			rs.close();
-			return list;
+			
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return null;
+		return list;
+
 	}
 
 	@Override
 	public void insert(CategoryModel category) {
-		String query = "INSERT [categories] SET categoryname = ?, images = ?, status = ? WHERE categoryid = ?";
+		String query = "INSERT INTO categories (categoryname, images, status) VALUES (?, ?, ?)";
 
 		try {
 			conn = new DBConnection().getConnection();
@@ -52,7 +50,7 @@ public class CategoryDAOImp implements ICategoryDao {
 			ps.setString(1, category.getcategoryname());
 			ps.setString(2, category.getImages());
 			ps.setInt(3, category.getStatus());
-			ps.setInt(4, category.getcategoryid());
+			
 			ps.executeUpdate();
 			conn.close();
 			ps.close();
@@ -67,7 +65,7 @@ public class CategoryDAOImp implements ICategoryDao {
 	@Override
 	public void edit(CategoryModel category) {
 		// TODO Auto-generated method stub
-		String query = "UPDATE [categories] SET categoryname = ?, images = ?, status = ? WHERE categoryid = ?";
+		String query = "UPDATE categories SET categoryname = ?, images = ?, status = ? WHERE categoryid = ?";
 
 		try {
 			conn = new DBConnection().getConnection();
@@ -89,7 +87,7 @@ public class CategoryDAOImp implements ICategoryDao {
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		String query = "DELETE [categories] WHERE categoryid = ?";
+		String query = "DELETE categories WHERE categoryid = ?";
 
 		try {
 			conn = new DBConnection().getConnection();
@@ -107,13 +105,35 @@ public class CategoryDAOImp implements ICategoryDao {
 
 	@Override
 	public CategoryModel findName(String keyword) {
-		// TODO Auto-generated method stub
+		String query = "SELECT * FROM categories WHERE categoryname = ?";
+
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, keyword);
+			rs = ps.executeQuery();
+
+			CategoryModel category = new CategoryModel();
+			while (rs.next()) {
+				category.setcategoryid(rs.getInt("categoryid"));
+				category.setcategoryname(rs.getString("categoryname"));
+				category.setImages(rs.getString("images"));
+				category.setStatus(rs.getInt("status"));
+			}
+			conn.close();
+			ps.close();
+			rs.close();
+			return category;
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+
 		return null;
 	}
 
 	@Override
 	public void updateStatus(int id, int status) {
-		String query = "UPDATE [categories] SET status = ? WHERE categoryid = ?";
+		String query = "UPDATE categories SET status = ? WHERE categoryid = ?";
 
 		try {
 			conn = new DBConnection().getConnection();
@@ -161,7 +181,7 @@ public class CategoryDAOImp implements ICategoryDao {
 
 	@Override
 	public CategoryModel findbyID(int id) {
-		String query = "SELECT * FROM [categories] WHERE categoryid = ?";
+		String query = "SELECT * FROM categories WHERE categoryid = ?";
 
 		try {
 			conn = new DBConnection().getConnection();
@@ -171,7 +191,7 @@ public class CategoryDAOImp implements ICategoryDao {
 
 			CategoryModel category = new CategoryModel();
 			while (rs.next()) {
-				category.setcategoryid(id);
+				category.setcategoryid(rs.getInt("categoryid"));
 				category.setcategoryname(rs.getString("categoryname"));
 				category.setImages(rs.getString("images"));
 				category.setStatus(rs.getInt("status"));

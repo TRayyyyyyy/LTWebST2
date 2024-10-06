@@ -8,7 +8,7 @@ public class DBConnection {
 	private final String dbName = "WEBST2";
 	private final String portNumber = "1433";
 	private final String instance = ""; // empty if there is only one instance of SQL Server
-	private final String userID = "sa";
+	private final String userID = "admin";
 	private final String password = "123";
 
 	public Connection getConnection() throws Exception {
