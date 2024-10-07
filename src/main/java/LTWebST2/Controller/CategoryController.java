@@ -33,10 +33,13 @@ public class CategoryController extends HttpServlet {
 			req.getRequestDispatcher("/views/admin/category-add.jsp").forward(req, resp);
 		}
 		
-		else if(url.contains("/admin/category/edit")) {
+		else if(url.contains("edit")) {
             int id = Integer.parseInt(req.getParameter("id"));
             CategoryModel categoryModel = catService.findByID(id);
+            req.setAttribute("cate", categoryModel);
             req.getRequestDispatcher("/views/admin/category-edit.jsp").forward(req, resp);
+            
+           
         }
 	}
 
