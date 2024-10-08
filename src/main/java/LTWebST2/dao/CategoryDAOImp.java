@@ -24,14 +24,17 @@ public class CategoryDaoImp implements ICategoryDao {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				CategoryModel category = new CategoryModel();
-				category.setcategoryid(rs.getInt("categoryid"));
-				category.setcategoryname(rs.getString("categoryname"));
+				category.setCategoryid(rs.getInt("categoryid"));
+				category.setCategoryname(rs.getString("categoryname"));
 				category.setImages(rs.getString("images"));
 				category.setStatus(rs.getInt("status"));
 				list.add(category);
 			}
 			
-
+			/*
+			 * conn.close(); ps.close(); rs.close();
+			 */
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -47,14 +50,14 @@ public class CategoryDaoImp implements ICategoryDao {
 		try {
 			conn = new DBConnection().getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setString(1, category.getcategoryname());
+			ps.setString(1, category.getCategoryname());
 			ps.setString(2, category.getImages());
 			ps.setInt(3, category.getStatus());
 			
 			ps.executeUpdate();
-			conn.close();
-			ps.close();
-			rs.close();
+			/*
+			 * conn.close(); ps.close(); rs.close();
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,21 +66,21 @@ public class CategoryDaoImp implements ICategoryDao {
 	}
 
 	@Override
-	public void edit(CategoryModel category) {
+	public void update(CategoryModel category) {
 		// TODO Auto-generated method stub
 		String query = "UPDATE categories SET categoryname = ?, images = ?, status = ? WHERE categoryid = ?";
 
 		try {
 			conn = new DBConnection().getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setString(1, category.getcategoryname());
+			ps.setString(1, category.getCategoryname());
 			ps.setString(2, category.getImages());
 			ps.setInt(3, category.getStatus());
-			ps.setInt(4, category.getcategoryid());
+			ps.setInt(4, category.getCategoryid());
 			ps.executeUpdate();
-			conn.close();
-			ps.close();
-			rs.close();
+			/*
+			 * conn.close(); ps.close(); rs.close();
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,9 +97,9 @@ public class CategoryDaoImp implements ICategoryDao {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			ps.executeUpdate();
-			conn.close();
-			ps.close();
-			rs.close();
+			/*
+			 * conn.close(); ps.close(); rs.close();
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,7 +107,7 @@ public class CategoryDaoImp implements ICategoryDao {
 	}
 
 	@Override
-	public CategoryModel findName(String keyword) {
+	public CategoryModel findByName(String keyword) {
 		String query = "SELECT * FROM categories WHERE categoryname = ?";
 
 		try {
@@ -115,8 +118,8 @@ public class CategoryDaoImp implements ICategoryDao {
 
 			CategoryModel category = new CategoryModel();
 			while (rs.next()) {
-				category.setcategoryid(rs.getInt("categoryid"));
-				category.setcategoryname(rs.getString("categoryname"));
+				category.setCategoryid(rs.getInt("categoryid"));
+				category.setCategoryname(rs.getString("categoryname"));
 				category.setImages(rs.getString("images"));
 				category.setStatus(rs.getInt("status"));
 			}
@@ -161,8 +164,8 @@ public class CategoryDaoImp implements ICategoryDao {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				CategoryModel category = new CategoryModel();
-				category.setcategoryid(rs.getInt("categoryid"));
-				category.setcategoryname(rs.getString("categoryname"));
+				category.setCategoryid(rs.getInt("categoryid"));
+				category.setCategoryname(rs.getString("categoryname"));
 				category.setImages(rs.getString("images"));
 				category.setStatus(rs.getInt("status"));
 				list.add(category);
@@ -191,8 +194,8 @@ public class CategoryDaoImp implements ICategoryDao {
 
 			CategoryModel category = new CategoryModel();
 			while (rs.next()) {
-				category.setcategoryid(rs.getInt("categoryid"));
-				category.setcategoryname(rs.getString("categoryname"));
+				category.setCategoryid(rs.getInt("categoryid"));
+				category.setCategoryname(rs.getString("categoryname"));
 				category.setImages(rs.getString("images"));
 				category.setStatus(rs.getInt("status"));
 			}

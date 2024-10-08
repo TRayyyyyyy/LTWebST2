@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/commons/taglib.jsp"%>
-<a href="${pageContext.request.contextPath}/admin/category/add">Add Category</a>
+<a href="${pageContext.request.contextPath}/admin/category/add">Add
+	Category</a>
 
 <table border="1" width="100%">
 	<tr>
@@ -11,45 +12,53 @@
 		<th>CategoryName</th>
 		<th>Status</th>
 		<th>Action</th>
-	<!-- 	<th>Company</th>
-		<th>Contact</th>
-		<th>Country</th> -->
 	</tr>
 
-	<c:forEach items="${listcat}" var="cate" varStatus="STT">
+	<c:forEach items="${listcate}" var="cate" varStatus="STT">
 		<tr>
 			<td>${STT.index+1 }</td>
-			
+
 			<td>
 			
-				<c:if test="">${cate.images.substring(0,5) != 'https' }>
-					<c:url value="/image?fname=${cate.images }" var="imgUrl"></c:url>
-				</c:if>
+				<c:if test="${!cate.images.substring(0,5).contains('http') }">
+									<c:url value="/image?fname=${cate.images}" var="imgUrl"></c:url>
+				</c:if> 
 				
-				<c:if test="">${cate.images.substring(0,5) == 'https' }>
-					<c:url value="${cate.images }" var="imgUrl"></c:url>
-				</c:if>
-					<img height="150" width="200" src="${imgUrl}" />
-					
+				<c:if test="${cate.images.substring(0,5).contains('http') }">
+									<c:url value="${cate.images }" var="imgUrl"></c:url>
+				</c:if> 
+				
+				<img height="150" width="200" src="${imgUrl}" id="images"/> 
+				
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${cate.images.contains('http')}"> --%>
+<%-- 						<img height="150" width="200" src="${cate.images}" --%>
+<!-- 							alt="Image not found" id="images" /> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:otherwise> --%>
+<%-- 						<c:url value="/image?fname=${cate.images}" var="imgUrl"></c:url> --%>
+<%-- 						<img height="150" width="200" src="${imgUrl}" --%>
+<!-- 							alt="Image not found" id="images" /> -->
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
+				
+				<br>
+
 			</td>
-			
-			<td>${cate.categoryid }</td>
-			<td>${cate.categoryname }</td>
-			
-			<td>
-			<c:if test="${cate.status == 1}">
-				<span>Hoạt động</span>
-			</c:if>	
-			
-			<c:if test="${cate.status != 1}">
-				<span>Khóa</span>
-			</c:if>	
-			
-			</td>
-			
+
+			<td>${cate.categoryid}</td>
+			<td>${cate.categoryname}</td>
+
+			<td><c:if test="${cate.status == 1}">
+					<span>Hoạt động</span>
+				</c:if> <c:if test="${cate.status != 1}">
+					<span>Khóa</span>
+				</c:if></td>
+
 			<td><a
-				href="<c:url value='/admin/category/edit?id=${cate.categoryid }'/>">Sửa</a> | <a
-				href="<c:url value='/admin/category/delete?id=${cate.categoryid }'/>">Xóa</a></td>
+				href="<c:url value='/admin/category/edit?id=${cate.categoryid}'/>">Sửa</a>
+				| <a
+				href="<c:url value='/admin/category/delete?id=${cate.categoryid}'/>">Xóa</a></td>
 		</tr>
 	</c:forEach>
 

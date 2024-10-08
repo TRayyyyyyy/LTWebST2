@@ -9,16 +9,16 @@ public class CategoryModel {
 	public CategoryModel() {
 		super();
 	}
-	public int getcategoryid() {
+	public int getCategoryid() {
 		return categoryid;
 	}
-	public void setcategoryid(int categoryid) {
+	public void setCategoryid(int categoryid) {
 		this.categoryid = categoryid;
 	}
-	public String getcategoryname() {
+	public String getCategoryname() {
 		return categoryname;
 	}
-	public void setcategoryname(String categoryname) {
+	public void setCategoryname(String categoryname) {
 		this.categoryname = categoryname;
 	}
 	public String getImages() {

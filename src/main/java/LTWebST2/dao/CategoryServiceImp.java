@@ -15,9 +15,9 @@ public class CategoryServiceImp implements ICategoryService {
 	}
 
 	@Override
-	public void edit(CategoryModel category) {
+	public void update(CategoryModel category) {
 		// TODO Auto-generated method stub
-		cateDao.edit(category);
+		cateDao.update(category);
 	}
 
 	@Override
@@ -41,13 +41,19 @@ public class CategoryServiceImp implements ICategoryService {
 	@Override
 	public CategoryModel findName(String keyword) {
 		// TODO Auto-generated method stub
-		return cateDao.findName(keyword);	
+		return cateDao.findByName(keyword);	
 	}
 
 	@Override
 	public List<CategoryModel> searchbyName(String keyword) {
 		// TODO Auto-generated method stub
 		return cateDao.serachByName(keyword);
+	}
+
+	@Override
+	public void updateStatus(int id, int status) {
+		// TODO Auto-generated method stub
+		cateDao.updateStatus(id, status);
 	}
 
 	
