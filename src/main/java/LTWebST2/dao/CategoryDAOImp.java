@@ -31,10 +31,7 @@ public class CategoryDaoImp implements ICategoryDao {
 				list.add(category);
 			}
 			
-			/*
-			 * conn.close(); ps.close(); rs.close();
-			 */
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
